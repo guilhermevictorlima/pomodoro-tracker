@@ -1,5 +1,5 @@
 <template>
-  <PomodoroView/>
+  <pomodoro-view/>
 </template>
 
 <script lang="ts">
@@ -15,6 +15,21 @@ export default defineComponent({
 </script>
 
 <style>
+
+main {
+	--bg-primario: #EF9F9F;
+	--bg-secundario: #F47C7C;
+	--titulo: #4a4545;
+	--texto: #FFF2F2;
+}
+
+main.dark-mode {
+	--bg-primario: #774360;
+	--bg-secundario: #4C3A51;
+	--titulo: #E7AB79;
+	--texto: #FFF2F2;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -15,6 +15,8 @@ export default defineComponent({
 		FormatadorTempoComponent,
 	},
 
+	emits: ['aoFinalizarContagem'],
+
 	props: {
 		tempoDoCiclo: {
 			required: true,
@@ -46,13 +48,15 @@ export default defineComponent({
 
 	methods: {
 
-		inicializarTempoInicial(): void {
-			this.tempoEmSegundos = this.$props.tempoDoCiclo;
-		},
-
 		iniciarContagem(): void {
+			this.tempoEmSegundos = this.$props.tempoDoCiclo;
+
 			this.intervalId = setInterval(()=> {
-				this.tempoEmSegundos--;
+				if(this.tempoEmSegundos === 0) {
+					this.$emit('aoFinalizarContagem');
+				} else {
+					this.tempoEmSegundos--;
+				}				
 			}, 1000);
 		},
 
@@ -61,10 +65,6 @@ export default defineComponent({
 		},
 
 	},
-
-	created() {
-		this.inicializarTempoInicial();
-	}
 
 });
 </script>

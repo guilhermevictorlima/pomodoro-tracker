@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import FormatadorTempoComponent from '../formatador-tempo/FormatadorTempoComponent.vue';
+import FormatadorTempoComponent from '../formatadortempo/FormatadorTempoComponent.vue';
 
 export default defineComponent({
 	name: 'TemporizadorComponent',

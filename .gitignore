@@ -185,4 +185,8 @@ dist/
 npm-debug.log
 yarn-error.log
 
+### IntelliJ ###
+
+idea/
+
 # End of https://www.toptal.com/developers/gitignore/api/vue,vuejs,visualstudiocode,node

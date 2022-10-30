@@ -1,5 +1,7 @@
 <template>
-  <pomodoro-view/>
+  <main class="ligth-mode">
+    <pomodoro-view/>
+  </main>
 </template>
 
 <script lang="ts">
@@ -9,18 +11,24 @@ import PomodoroView from './components/view/pomodoro/PomodoroView.vue';
 export default defineComponent({
   name: 'App',
   components: {
-	PomodoroView
+    PomodoroView
   }
 });
 </script>
 
-<style>
+<style scoped>
 
 main {
-	--bg-primario: #EF9F9F;
-	--bg-secundario: #F47C7C;
-	--titulo: #4a4545;
-	--texto: #FFF2F2;
+  height: 100vh;
+  padding-top: 2rem;
+  background-color: var(--bg-primario);
+}
+
+main.ligth-mode {
+  --bg-primario: #cf3a3a;
+  --bg-secundario: #F47C7C;
+  --bg-tarefa-rodando: #8c1a14;
+  --bg-pausa-rodando: #8c1a14;
 }
 
 main.dark-mode {
@@ -30,11 +38,4 @@ main.dark-mode {
 	--texto: #FFF2F2;
 }
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

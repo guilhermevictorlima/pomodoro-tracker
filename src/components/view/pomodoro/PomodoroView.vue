@@ -8,15 +8,7 @@
 		<div class="pomodoro-view__tracker">
 			<TemporizadorComponent
           :tempoDoCiclo="120"
-          :isTemporizadorRodando="isTemporizadorRodando"
-          @aoFinalizarContagem="isTemporizadorRodando = false"
       />
-
-      <span class="pomodoro-view__tracker-controls--temporizador-inativo" v-if="!isTemporizadorRodando">
-        <button @click="isTemporizadorRodando = true" class="btn btn-outline-dark pomodoro-view__tracker-controls__botao">
-          <font-awesome-icon icon="fa-solid fa-forward-step"/>
-        </button>
-      </span>
     </div>
   </div>
 </template>
@@ -30,14 +22,7 @@ export default defineComponent({
 	
 	components: {
 		TemporizadorComponent
-	},
-
-	data() {
-		return {
-			isTemporizadorRodando: false
-		}
-	},
-
+	}
 });
 </script>
 
@@ -55,15 +40,6 @@ export default defineComponent({
 
 .pomodoro-view__tracker {
   margin-top: 5rem;
-}
-
-.pomodoro-view__tracker-controls__botao {
-  border-radius: 100%;
-  background-color: white;
-}
-
-.pomodoro-view__tracker-controls__botao:last-child {
-  margin-left: 0.5rem;
 }
 
 </style>

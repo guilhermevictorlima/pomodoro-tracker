@@ -1,21 +1,30 @@
 <template>
-  <div>
-    <figure>
+  <div class="tracker">
+    <figure class="tracker__view">
       <img src="@/assets/tomato-icon.svg" alt="">
       <figcaption>
         <FormatadorTempoComponent :tempoEmSegundos="tempoEmSegundos"/>
       </figcaption>
     </figure>
-    <div class="pomodoro-view__tracker-controls--temporizador-ativo" v-if="isTemporizadorRodando">
 
-      <button @click="pausarOuRetomarTemporizador()" class="btn btn-outline-dark pomodoro-view__tracker-controls__botao">
-        <font-awesome-icon :icon="`fa-solid ${iconePauseOuContinue}`"/>
-      </button>
-      <button @click="interromperTemporizador()" class="btn btn-outline-dark pomodoro-view__tracker-controls__botao">
-        <font-awesome-icon icon="fa-solid fa-stop"/>
-      </button>
+    <div class="tracker__controls">
+      <div class="tracker__controls--temporizador-inativo" v-if="!temporizadorAtivo">
+        <button @click="temporizadorAtivo = true" class="btn btn-outline-dark tracker__controls__button">
+          <font-awesome-icon icon="fa-solid fa-forward-step"/>
+        </button>
+      </div>
 
+      <div class="tracker__controls--temporizador-ativo" v-if="temporizadorAtivo">
+        <button @click="pausarOuRetomarTemporizador()" class="btn btn-outline-dark tracker__controls__button">
+          <font-awesome-icon :icon="`fa-solid ${iconePauseOuContinue}`"/>
+        </button>
+        <button @click="inativarTemporizador()" class="btn btn-outline-dark tracker__controls__button">
+          <font-awesome-icon icon="fa-solid fa-stop"/>
+        </button>
+      </div>
     </div>
+
+
   </div>
 </template>
 
@@ -36,11 +45,6 @@ export default defineComponent({
 		tempoDoCiclo: {
 			required: true,
 			type: Number
-		},
-
-		isTemporizadorRodando: {
-			required: true,
-			type: Boolean
 		}
 	},
 
@@ -48,16 +52,17 @@ export default defineComponent({
 		return {
 			tempoEmSegundos: 0,
 			intervalId: 0,
-      temporizadorEstaRodando: false
+      temporizadorAtivo: false,
+      isTemporizadorRodando: false
 		}
 	},
 
 	watch: {
-		isTemporizadorRodando: function (isRodando: boolean) {
-      this.temporizadorEstaRodando = isRodando;
-		},
+    temporizadorAtivo: function (isAtivo: boolean)  {
+      this.isTemporizadorRodando = isAtivo;
+    },
 
-    temporizadorEstaRodando: function (isRodando: boolean) {
+    isTemporizadorRodando: function (isRodando: boolean) {
       if (isRodando) {
         this.iniciarContagem();
       } else {
@@ -67,11 +72,8 @@ export default defineComponent({
 	},
 
 	methods: {
-
 		iniciarContagem(): void {
-			this.tempoEmSegundos = this.tempoRestanteEmSegundos();
-
-      console.log(this.tempoEmSegundos);
+			this.tempoEmSegundos = this.obterTempoRestanteEmSegundos();
 
 			this.intervalId = setInterval(()=> {
 				if (this.tempoEmSegundos === 0) {
@@ -82,7 +84,7 @@ export default defineComponent({
 			}, 1000);
 		},
 
-    tempoRestanteEmSegundos(): number {
+    obterTempoRestanteEmSegundos(): number {
       return this.tempoEmSegundos !== 0 && this.tempoEmSegundos != this.$props.tempoDoCiclo ? this.tempoEmSegundos : this.$props.tempoDoCiclo;
     },
 
@@ -91,39 +93,46 @@ export default defineComponent({
 		},
 
     pausarOuRetomarTemporizador(): void {
-      this.temporizadorEstaRodando = !this.temporizadorEstaRodando;
+      this.isTemporizadorRodando = !this.isTemporizadorRodando;
     },
 
-    interromperTemporizador(): void {
+    inativarTemporizador(): void {
       this.pararContagem();
       this.tempoEmSegundos = 0;
+      this.temporizadorAtivo = false;
       this.$emit('aoFinalizarContagem');
     }
-
 	},
 
   computed: {
-
     iconePauseOuContinue(): string {
-      return this.temporizadorEstaRodando ? 'fa-pause' : 'fa-play';
+      return this.isTemporizadorRodando ? 'fa-pause' : 'fa-play';
     }
-
   }
 
 });
 </script>
 
-<style scoped>
+<style>
 
-img {
+.tracker__view img {
   width: 18rem;
 }
 
-figcaption {
+.tracker__view figcaption {
   position: relative;
   bottom: 8rem;
   color: white;
   font-size: 2rem;
+}
+
+.tracker__controls__button {
+  border-radius: 100%;
+  background-color: white;
+}
+
+.tracker__controls__button:last-child {
+  margin-left: 0.5rem;
 }
 
 </style>

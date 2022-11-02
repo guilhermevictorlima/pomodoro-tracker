@@ -18,7 +18,7 @@ export default defineComponent({
 	methods: {
 		obterHoraMinutoSegundo(tempoEmDate: Date): string {
 			const horaEmSegundos = 3600;
-			const posicaoHoraOuMinuto = this.$props.tempoEmSegundos > horaEmSegundos ? 11 : 14;
+			const posicaoHoraOuMinuto = this.$props.tempoEmSegundos >= horaEmSegundos ? 11 : 14;
 
 			return tempoEmDate.toISOString().substring(posicaoHoraOuMinuto, 19);
 		},

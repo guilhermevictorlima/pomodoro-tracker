@@ -77,7 +77,7 @@ export default defineComponent({
 
 			this.intervalId = setInterval(()=> {
 				if (this.tempoEmSegundos === 0) {
-					this.$emit('aoFinalizarContagem');
+					this.inativarTemporizador();
 				} else {
 					this.tempoEmSegundos--;
 				}

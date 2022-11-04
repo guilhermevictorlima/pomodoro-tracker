@@ -8,7 +8,9 @@
 		</span>
       <div class="pomodoro-view__tracker">
         <TemporizadorComponent
-            :tempoDoCiclo="obterTempoEmMinutos(workTime)"
+            :work-time="obterTempoEmMinutos(workTime)"
+            :short-break-time="obterTempoEmMinutos(shortBreakTime)"
+            :long-break-time="obterTempoEmMinutos(longBreakTime)"
         />
       </div>
 

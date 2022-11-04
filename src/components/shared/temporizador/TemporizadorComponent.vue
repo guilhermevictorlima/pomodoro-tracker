@@ -8,13 +8,13 @@
     </figure>
 
     <div class="tracker__controls">
-      <div class="tracker__controls--temporizador-inativo" v-if="!temporizadorAtivo">
-        <button @click="temporizadorAtivo = true" class="btn btn-outline-dark tracker__controls__button">
+      <div class="tracker__controls--temporizador-inativo" v-if="!isTemporizadorAtivo">
+        <button @click="isTemporizadorAtivo = true" class="btn btn-outline-dark tracker__controls__button">
           <font-awesome-icon icon="fa-solid fa-forward-step"/>
         </button>
       </div>
 
-      <div class="tracker__controls--temporizador-ativo" v-if="temporizadorAtivo">
+      <div class="tracker__controls--temporizador-ativo" v-if="isTemporizadorAtivo">
         <button @click="pausarOuRetomarTemporizador()" class="btn btn-outline-dark tracker__controls__button">
           <font-awesome-icon :icon="`fa-solid ${iconePauseOuContinue}`"/>
         </button>
@@ -42,7 +42,15 @@ export default defineComponent({
 	emits: ['aoFinalizarContagem'],
 
 	props: {
-		tempoDoCiclo: {
+		workTime: {
+			required: true,
+			type: Number
+		},
+		shortBreakTime: {
+			required: true,
+			type: Number
+		},
+    longBreakTime: {
 			required: true,
 			type: Number
 		}
@@ -50,15 +58,17 @@ export default defineComponent({
 
 	data() {
 		return {
+      contadorCiclosTrabalho: 0,
 			tempoEmSegundos: 0,
 			intervalId: 0,
-      temporizadorAtivo: false,
-      isTemporizadorRodando: false
+      isTemporizadorAtivo: false,
+      isTemporizadorRodando: false,
+      isCicloDeTrabalho: true
 		}
 	},
 
 	watch: {
-    temporizadorAtivo: function (isAtivo: boolean)  {
+    isTemporizadorAtivo: function (isAtivo: boolean)  {
       this.isTemporizadorRodando = isAtivo;
     },
 
@@ -73,6 +83,11 @@ export default defineComponent({
 
 	methods: {
 		iniciarContagem(): void {
+
+      if (this.isCicloDeTrabalho) {
+        this.contadorCiclosTrabalho += 1;
+      }
+
 			this.tempoEmSegundos = this.obterTempoRestanteEmSegundos();
 
 			this.intervalId = setInterval(()=> {
@@ -85,7 +100,14 @@ export default defineComponent({
 		},
 
     obterTempoRestanteEmSegundos(): number {
-      return this.tempoEmSegundos !== 0 && this.tempoEmSegundos != this.$props.tempoDoCiclo ? this.tempoEmSegundos : this.$props.tempoDoCiclo;
+
+      let tempoTemporizador = this.isCicloDeTrabalho ? this.$props.workTime : this.$props.shortBreakTime;
+
+      if (!this.isCicloDeTrabalho && this.contadorCiclosTrabalho == 0) {
+        tempoTemporizador = this.$props.longBreakTime;
+      }
+
+      return this.tempoEmSegundos !== 0 && this.tempoEmSegundos != tempoTemporizador ? this.tempoEmSegundos : tempoTemporizador;
     },
 
 		pararContagem(): void {
@@ -99,7 +121,13 @@ export default defineComponent({
     inativarTemporizador(): void {
       this.pararContagem();
       this.tempoEmSegundos = 0;
-      this.temporizadorAtivo = false;
+      this.isTemporizadorAtivo = false;
+
+      if (this.contadorCiclosTrabalho == 4) {
+        this.contadorCiclosTrabalho = 0;
+      }
+
+      this.isCicloDeTrabalho = !this.isCicloDeTrabalho;
       this.$emit('aoFinalizarContagem');
     }
 	},

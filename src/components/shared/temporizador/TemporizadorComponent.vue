@@ -7,8 +7,17 @@
       </figcaption>
     </figure>
 
+    <div class="tracker__view__work-cicles">
+      Work Cycles Done: <strong>{{ contadorCiclosTrabalho }}</strong>
+    </div>
+
     <div class="tracker__controls">
       <div class="tracker__controls--temporizador-inativo" v-if="!isTemporizadorAtivo">
+        <button @click="reiniciarCiclosDeTrabalho()"
+                class="btn btn-outline-dark tracker__controls__button"
+                v-if="contadorCiclosTrabalho > 0">
+          <font-awesome-icon icon="fa-solid fa-repeat"/>
+        </button>
         <button @click="isTemporizadorAtivo = true" class="btn btn-outline-dark tracker__controls__button">
           <font-awesome-icon icon="fa-solid fa-forward-step"/>
         </button>
@@ -23,8 +32,6 @@
         </button>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -39,7 +46,7 @@ export default defineComponent({
 		FormatadorTempoComponent,
 	},
 
-	emits: ['aoFinalizarContagem'],
+	emits: ['finalizarContagem'],
 
 	props: {
 		workTime: {
@@ -103,7 +110,7 @@ export default defineComponent({
 
       let tempoTemporizador = this.isCicloDeTrabalho ? this.$props.workTime : this.$props.shortBreakTime;
 
-      if (!this.isCicloDeTrabalho && this.contadorCiclosTrabalho == 0) {
+      if (!this.isCicloDeTrabalho && this.isPausaLonga()) {
         tempoTemporizador = this.$props.longBreakTime;
       }
 
@@ -123,12 +130,17 @@ export default defineComponent({
       this.tempoEmSegundos = 0;
       this.isTemporizadorAtivo = false;
 
-      if (this.contadorCiclosTrabalho == 4) {
-        this.contadorCiclosTrabalho = 0;
-      }
-
       this.isCicloDeTrabalho = !this.isCicloDeTrabalho;
-      this.$emit('aoFinalizarContagem');
+      this.$emit('finalizarContagem');
+    },
+
+    reiniciarCiclosDeTrabalho(): void {
+      this.contadorCiclosTrabalho = 0;
+    },
+
+    isPausaLonga(): boolean {
+      let numeroDeCiclosEMultiploDeQuatro = this.contadorCiclosTrabalho % 4 === 0;
+      return numeroDeCiclosEMultiploDeQuatro;
     }
 	},
 
@@ -143,6 +155,10 @@ export default defineComponent({
 
 <style>
 
+.tracker__view {
+  margin-bottom: -1rem;
+}
+
 .tracker__view img {
   width: 18rem;
 }
@@ -152,6 +168,12 @@ export default defineComponent({
   bottom: 8rem;
   color: white;
   font-size: 2rem;
+}
+
+.tracker__view__work-cicles {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #EDDBC0;
 }
 
 .tracker__controls__button {

@@ -5,12 +5,15 @@
         {{ labelText }}
       </label>
       <input
+          ref="testtt"
           v-model="inputValue"
           class="form-group__container__input"
+          :class="isInputInvalido ? 'form-group__container__input--invalid' : ''"
           maxlength="6"
           :placeholder="placeholder"
-          @keyup="emitirValorInput()"
+          @input="emitirValorInput()"
       />
+      <span class="form-group__container__error-message" v-if="isInputInvalido">Enter time in minutes</span>
     </div>
   </fieldset>
 </template>
@@ -21,7 +24,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'InputTempoComponent',
 
-  emits: ['aoDigitar'],
+  emits: ['digitar'],
 
   props: {
     labelText: {
@@ -34,13 +37,27 @@ export default defineComponent({
 
   data() {
     return  {
-      inputValue: ''
+      inputValue: '',
+      isInputInvalido: false
     }
   },
 
   methods: {
     emitirValorInput(): void {
-      this.$emit('aoDigitar', this.inputValue);
+      this.validar();
+
+      if (!this.isInputInvalido) {
+        this.$emit('digitar', this.inputValue);
+      }
+    },
+
+    validar(): void {
+      if (this.inputValue != '') {
+        let intValue = parseInt(this.inputValue);
+        this.isInputInvalido = isNaN(intValue) || intValue <= 0;
+      } else {
+        this.isInputInvalido = false;
+      }
     }
   }
 
@@ -48,6 +65,29 @@ export default defineComponent({
 </script>
 
 <style>
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-3px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(4px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-8px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(8px, 0, 0);
+  }
+}
 
 .form-group__container {
   display: flex;
@@ -79,6 +119,10 @@ export default defineComponent({
 
 .form-group__container__input:focus::placeholder {
   color: transparent;
+}
+
+.form-group__container__input--invalid {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
 

@@ -19,7 +19,7 @@
           <InputTempoComponent
               label-text="Work time"
               placeholder="25"
-              @aoDigitar="setarWorkTime($event)"
+              @input="setarWorkTime($event)"
           />
         </div>
         <br/>
@@ -27,7 +27,7 @@
           <InputTempoComponent
               label-text="Short break"
               placeholder="5"
-              @aoDigitar="setarShortBreakTime($event)"
+              @input="setarShortBreakTime($event)"
           />
 
           &nbsp;
@@ -37,7 +37,7 @@
           <InputTempoComponent
               label-text="Long break"
               placeholder="15"
-              @aoDigitar="setarLongBreakTime($event)"
+              @input="setarLongBreakTime($event)"
           />
         </div>
       </div>

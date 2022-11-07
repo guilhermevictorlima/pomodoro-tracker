@@ -13,7 +13,7 @@
           :placeholder="placeholder"
           @input="emitirValorInput()"
       />
-      <span class="form-group__container__error-message" v-if="isInputInvalido">Enter time in minutes</span>
+      <span class="form-group__container__error-message" v-if="isInputInvalido">{{ mensagemDeErro }}</span>
     </div>
   </fieldset>
 </template>
@@ -58,6 +58,12 @@ export default defineComponent({
       } else {
         this.isInputInvalido = false;
       }
+    }
+  },
+
+  computed: {
+    mensagemDeErro(): string {
+      return isNaN(parseInt(this.inputValue)) ? 'Enter time in minutes' : 'Enter a valid value in minutes';
     }
   }
 

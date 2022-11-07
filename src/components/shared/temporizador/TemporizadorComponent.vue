@@ -135,6 +135,7 @@ export default defineComponent({
     },
 
     reiniciarCiclosDeTrabalho(): void {
+      this.isCicloDeTrabalho = true;
       this.contadorCiclosTrabalho = 0;
     },
 

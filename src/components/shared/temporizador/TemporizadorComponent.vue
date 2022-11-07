@@ -3,7 +3,7 @@
     <figure class="tracker__view">
       <img src="@/assets/tomato-icon.svg" alt="">
       <figcaption>
-        <FormatadorTempoComponent :tempoEmSegundos="tempoEmSegundos"/>
+        <FormatadorTempoComponent :tempoEmSegundos="isTemporizadorRodando ? tempoEmSegundos : obterTempoRestanteEmSegundos()"/>
       </figcaption>
     </figure>
 

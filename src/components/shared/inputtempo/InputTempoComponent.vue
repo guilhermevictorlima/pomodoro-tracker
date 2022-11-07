@@ -125,5 +125,10 @@ export default defineComponent({
   animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
+.form-group__container__error-message {
+  font-size: 0.8rem;
+  color: #ff0000;
+}
+
 
 </style>

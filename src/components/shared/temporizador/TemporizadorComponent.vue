@@ -108,10 +108,12 @@ export default defineComponent({
 
     obterTempoRestanteEmSegundos(): number {
 
-      let tempoTemporizador = this.isCicloDeTrabalho ? this.$props.workTime : this.$props.shortBreakTime;
+      let tempoTemporizador = this.isCicloDeTrabalho
+          ? (this.$props.workTime || 1500)
+          : (this.$props.shortBreakTime || 300);
 
       if (!this.isCicloDeTrabalho && this.isPausaLonga()) {
-        tempoTemporizador = this.$props.longBreakTime;
+        tempoTemporizador = (this.$props.longBreakTime || 900);
       }
 
       return this.tempoEmSegundos !== 0 && this.tempoEmSegundos != tempoTemporizador ? this.tempoEmSegundos : tempoTemporizador;

@@ -117,7 +117,7 @@ export default defineComponent({
         tempoTemporizador = (this.$props.longBreakTime || 900);
       }
 
-      return this.tempoEmSegundos !== 0 && this.tempoEmSegundos != tempoTemporizador ? this.tempoEmSegundos : tempoTemporizador;
+      return this.tempoEmSegundos !== 0 ? this.tempoEmSegundos : tempoTemporizador;
     },
 
 		pararContagem(): void {

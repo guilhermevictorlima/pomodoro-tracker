@@ -8,6 +8,7 @@
 		</span>
       <div class="pomodoro-view__tracker">
         <TemporizadorComponent
+            @temporizadorAtivo="temporizadorAtivo = $event"
             :work-time="obterTempoEmMinutos(workTime)"
             :short-break-time="obterTempoEmMinutos(shortBreakTime)"
             :long-break-time="obterTempoEmMinutos(longBreakTime)"
@@ -19,6 +20,7 @@
           <InputTempoComponent
               label-text="Work time"
               placeholder="25"
+              :disabled="temporizadorAtivo"
               @digitar="setarWorkTime($event)"
           />
         </div>
@@ -27,6 +29,7 @@
           <InputTempoComponent
               label-text="Short break"
               placeholder="5"
+              :disabled="temporizadorAtivo"
               @digitar="setarShortBreakTime($event)"
           />
 
@@ -37,6 +40,7 @@
           <InputTempoComponent
               label-text="Long break"
               placeholder="15"
+              :disabled="temporizadorAtivo"
               @digitar="setarLongBreakTime($event)"
           />
         </div>
@@ -63,6 +67,7 @@ export default defineComponent({
       workTime: 0,
       shortBreakTime: 0,
       longBreakTime: 0,
+      temporizadorAtivo: false
     }
   },
 

@@ -46,7 +46,7 @@ export default defineComponent({
 		FormatadorTempoComponent,
 	},
 
-	emits: ['finalizarContagem'],
+	emits: ['finalizarContagem', 'temporizadorAtivo'],
 
 	props: {
 		workTime: {
@@ -76,6 +76,7 @@ export default defineComponent({
 
 	watch: {
     isTemporizadorAtivo: function (isAtivo: boolean)  {
+      this.$emit('temporizadorAtivo', isAtivo);
       this.isTemporizadorRodando = isAtivo;
     },
 
@@ -133,7 +134,6 @@ export default defineComponent({
       this.isTemporizadorAtivo = false;
 
       this.isCicloDeTrabalho = !this.isCicloDeTrabalho;
-      this.$emit('finalizarContagem');
     },
 
     reiniciarCiclosDeTrabalho(): void {

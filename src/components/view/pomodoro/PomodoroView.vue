@@ -106,7 +106,7 @@ export default defineComponent({
 main {
   height: 100vh;
   background-color: var(--bg-primario);
-  transition: 0.5s background-color;
+  transition: 0.3s background-color;
 
   --cor-texto-input: #DBC8AC;
   --cor-placeholder-input: #9c8f7b;

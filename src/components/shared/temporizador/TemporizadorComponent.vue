@@ -46,7 +46,7 @@ export default defineComponent({
 		FormatadorTempoComponent,
 	},
 
-	emits: ['finalizarContagem', 'temporizadorAtivo'],
+	emits: ['temporizadorAtivo', 'cicloDeTrabalhoIniciado'],
 
 	props: {
 		workTime: {
@@ -91,6 +91,8 @@ export default defineComponent({
 
 	methods: {
 		iniciarContagem(): void {
+
+      this.$emit('cicloDeTrabalhoIniciado', this.isCicloDeTrabalho);
 
       if (this.isCicloDeTrabalho && this.tempoEmSegundos === 0) {
         this.contadorCiclosTrabalho += 1;

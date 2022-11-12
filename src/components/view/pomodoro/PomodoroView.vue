@@ -1,5 +1,7 @@
 <template>
-	<main class="ligth-mode">
+	<main class="ligth-mode"
+        :class="classeTemporizadorRodando"
+  >
     <div class="pomodoro-view">
 		<span>
 			<h1 class="pomodoro-view__title">
@@ -9,6 +11,7 @@
       <div class="pomodoro-view__tracker">
         <TemporizadorComponent
             @temporizadorAtivo="temporizadorAtivo = $event"
+            @cicloDeTrabalhoIniciado="isCicloDeTrabalho = $event"
             :work-time="obterTempoEmMinutos(workTime)"
             :short-break-time="obterTempoEmMinutos(shortBreakTime)"
             :long-break-time="obterTempoEmMinutos(longBreakTime)"
@@ -67,7 +70,8 @@ export default defineComponent({
       workTime: 0,
       shortBreakTime: 0,
       longBreakTime: 0,
-      temporizadorAtivo: false
+      temporizadorAtivo: false,
+      isCicloDeTrabalho: false
     }
   },
 
@@ -87,6 +91,12 @@ export default defineComponent({
     obterTempoEmMinutos(tempoEmSegundos: number): number {
       return tempoEmSegundos * 60;
     }
+  },
+
+  computed: {
+    classeTemporizadorRodando(): string {
+      return this.temporizadorAtivo && this.isCicloDeTrabalho ? 'work-timer-running' : '';
+    }
   }
 });
 </script>
@@ -96,24 +106,30 @@ export default defineComponent({
 main {
   height: 100vh;
   background-color: var(--bg-primario);
+  transition: 0.5s background-color;
+
+  --cor-texto-input: #DBC8AC;
+  --cor-placeholder-input: #9c8f7b;
 }
 
 main.ligth-mode {
   --bg-primario: #cf3a3a;
   --bg-secundario: #F47C7C;
   --bg-tarefa-rodando: #8c1a14;
-  --bg-pausa-rodando: #8c1a14;
 
-  --cor-texto-input: #DBC8AC;
   --cor-borda-input: #660b0b;
-  --cor-placeholder-input: #9c8f7b;
 }
 
 main.dark-mode {
-  --bg-primario: #774360;
+  --bg-primario: #130b21;
   --bg-secundario: #4C3A51;
-  --titulo: #E7AB79;
-  --texto: #FFF2F2;
+  --bg-tarefa-rodando: #0b0514;
+
+  --cor-borda-input: #774360;
+}
+
+.work-timer-running {
+  background-color: var(--bg-tarefa-rodando);
 }
 
 .pomodoro-view  {

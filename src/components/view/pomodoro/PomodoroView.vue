@@ -114,7 +114,6 @@ main {
 
 main.ligth-mode {
   --bg-primario: #cf3a3a;
-  --bg-secundario: #F47C7C;
   --bg-tarefa-rodando: #8c1a14;
 
   --cor-borda-input: #660b0b;
@@ -122,7 +121,6 @@ main.ligth-mode {
 
 main.dark-mode {
   --bg-primario: #130b21;
-  --bg-secundario: #4C3A51;
   --bg-tarefa-rodando: #0b0514;
 
   --cor-borda-input: #774360;

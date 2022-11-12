@@ -92,7 +92,7 @@ export default defineComponent({
 	methods: {
 		iniciarContagem(): void {
 
-      if (this.isCicloDeTrabalho) {
+      if (this.isCicloDeTrabalho && this.tempoEmSegundos === 0) {
         this.contadorCiclosTrabalho += 1;
       }
 

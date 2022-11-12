@@ -1,11 +1,11 @@
 <template>
 	<main :class="classeTemporizadorRodando">
     <div class="pomodoro-view">
-		<span>
-			<h1 class="pomodoro-view__title">
-        Pomodoro <br/> Tracker
-      </h1>
-		</span>
+      <span>
+        <h1 class="pomodoro-view__title">
+          Pomodoro <br/> Tracker
+        </h1>
+      </span>
       <div class="pomodoro-view__tracker">
         <TemporizadorComponent
             @temporizadorAtivo="temporizadorAtivo = $event"
@@ -56,8 +56,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TemporizadorComponent from '@/components/shared/temporizador/TemporizadorComponent.vue';
-import InputTempoComponent from '@/components/shared/inputtempo/InputTempoComponent.vue';
+import TemporizadorComponent from '@/components/temporizador/TemporizadorComponent.vue';
+import InputTempoComponent from '@/components/inputtempo/InputTempoComponent.vue';
 
 export default defineComponent({
 	name: 'PomodoroView',

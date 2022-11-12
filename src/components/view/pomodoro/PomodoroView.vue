@@ -1,7 +1,5 @@
 <template>
-	<main class="ligth-mode"
-        :class="classeTemporizadorRodando"
-  >
+	<main :class="classeTemporizadorRodando">
     <div class="pomodoro-view">
 		<span>
 			<h1 class="pomodoro-view__title">

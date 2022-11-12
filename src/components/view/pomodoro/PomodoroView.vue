@@ -112,23 +112,6 @@ main {
   height: 100vh;
   background-color: var(--bg-primario);
   transition: 0.3s background-color;
-
-  --cor-texto-input: #DBC8AC;
-  --cor-placeholder-input: #9c8f7b;
-}
-
-main.ligth-mode {
-  --bg-primario: #cf3a3a;
-  --bg-tarefa-rodando: #8c1a14;
-
-  --cor-borda-input: #660b0b;
-}
-
-main.dark-mode {
-  --bg-primario: #130b21;
-  --bg-tarefa-rodando: #0b0514;
-
-  --cor-borda-input: #774360;
 }
 
 .work-timer-running {

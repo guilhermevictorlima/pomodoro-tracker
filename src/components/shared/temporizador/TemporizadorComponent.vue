@@ -15,19 +15,30 @@
       <div class="tracker__controls--temporizador-inativo" v-if="!isTemporizadorAtivo">
         <button @click="reiniciarCiclosDeTrabalho()"
                 class="btn btn-outline-dark tracker__controls__button"
-                v-if="contadorCiclosTrabalho > 0">
+                v-if="contadorCiclosTrabalho > 0"
+                :disabled="this.$props.disabledButtons"
+        >
           <font-awesome-icon icon="fa-solid fa-repeat"/>
         </button>
-        <button @click="isTemporizadorAtivo = true" class="btn btn-outline-dark tracker__controls__button">
+        <button @click="isTemporizadorAtivo = true"
+                class="btn btn-outline-dark tracker__controls__button"
+                :disabled="this.$props.disabledButtons"
+        >
           <font-awesome-icon icon="fa-solid fa-forward-step"/>
         </button>
       </div>
 
       <div class="tracker__controls--temporizador-ativo" v-if="isTemporizadorAtivo">
-        <button @click="pausarOuRetomarTemporizador()" class="btn btn-outline-dark tracker__controls__button">
+        <button @click="pausarOuRetomarTemporizador()"
+                class="btn btn-outline-dark tracker__controls__button"
+                :disabled="this.$props.disabledButtons"
+        >
           <font-awesome-icon :icon="`fa-solid ${iconePauseOuContinue}`"/>
         </button>
-        <button @click="inativarTemporizador()" class="btn btn-outline-dark tracker__controls__button">
+        <button @click="inativarTemporizador()"
+                class="btn btn-outline-dark tracker__controls__button"
+                :disabled="this.$props.disabledButtons"
+        >
           <font-awesome-icon icon="fa-solid fa-stop"/>
         </button>
       </div>
@@ -60,7 +71,11 @@ export default defineComponent({
     longBreakTime: {
 			required: true,
 			type: Number
-		}
+		},
+    disabledButtons: {
+      type: Boolean,
+      default: false
+    }
 	},
 
 	data() {
@@ -188,6 +203,10 @@ export default defineComponent({
 
 .tracker__controls__button:last-child {
   margin-left: 0.5rem;
+}
+
+.tracker__controls__button:disabled {
+  background-color: #c4c4c4;
 }
 
 </style>

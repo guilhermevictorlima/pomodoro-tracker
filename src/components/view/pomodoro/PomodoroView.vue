@@ -12,6 +12,7 @@
         <TemporizadorComponent
             @temporizadorAtivo="temporizadorAtivo = $event"
             @cicloDeTrabalhoIniciado="isCicloDeTrabalho = $event"
+            :disabled-buttons="valorInvalidoInput"
             :work-time="obterTempoEmMinutos(workTime)"
             :short-break-time="obterTempoEmMinutos(shortBreakTime)"
             :long-break-time="obterTempoEmMinutos(longBreakTime)"
@@ -25,6 +26,7 @@
               placeholder="25"
               :disabled="temporizadorAtivo"
               @digitar="setarWorkTime($event)"
+              @valorInvalido="valorInvalidoInput = $event"
           />
         </div>
         <br/>
@@ -34,6 +36,7 @@
               placeholder="5"
               :disabled="temporizadorAtivo"
               @digitar="setarShortBreakTime($event)"
+              @valorInvalido="valorInvalidoInput = $event"
           />
 
           &nbsp;
@@ -45,6 +48,7 @@
               placeholder="15"
               :disabled="temporizadorAtivo"
               @digitar="setarLongBreakTime($event)"
+              @valorInvalido="valorInvalidoInput = $event"
           />
         </div>
       </div>
@@ -71,7 +75,8 @@ export default defineComponent({
       shortBreakTime: 0,
       longBreakTime: 0,
       temporizadorAtivo: false,
-      isCicloDeTrabalho: false
+      isCicloDeTrabalho: false,
+      valorInvalidoInput: false
     }
   },
 

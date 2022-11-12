@@ -24,7 +24,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'InputTempoComponent',
 
-  emits: ['digitar'],
+  emits: ['digitar', 'valorInvalido'],
 
   props: {
     labelText: {
@@ -39,6 +39,12 @@ export default defineComponent({
     return  {
       inputValue: '',
       isInputInvalido: false
+    }
+  },
+
+  watch: {
+    isInputInvalido(isInvalido: boolean): void {
+      this.$emit('valorInvalido', isInvalido);
     }
   },
 

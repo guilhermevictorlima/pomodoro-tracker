@@ -107,10 +107,20 @@ export default defineComponent({
 <style>
 
 main {
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+
   background-color: var(--bg-primario);
   transition: 0.3s background-color;
 }
+
+@media (min-height: 850px) {
+  main {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
 
 .work-timer-running {
   background-color: var(--bg-tarefa-rodando);

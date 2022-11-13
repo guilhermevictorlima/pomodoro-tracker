@@ -116,11 +116,10 @@ main {
 
 @media (min-height: 850px) {
   main {
-    min-height: 100vh;
+    height: 100vh;
     min-height: -webkit-fill-available;
   }
 }
-
 
 .work-timer-running {
   background-color: var(--bg-tarefa-rodando);

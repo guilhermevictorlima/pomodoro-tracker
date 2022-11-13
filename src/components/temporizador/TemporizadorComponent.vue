@@ -50,6 +50,8 @@
 import { defineComponent } from 'vue';
 import FormatadorTempoComponent from '../formatadortempo/FormatadorTempoComponent.vue';
 
+import notification from '@/assets/notification.mp3';
+
 export default defineComponent({
 	name: 'TemporizadorComponent',
 
@@ -117,7 +119,8 @@ export default defineComponent({
 
 			this.intervalId = setInterval(()=> {
 				if (this.tempoEmSegundos === 0) {
-					this.inativarTemporizador();
+          this.tocarAudio();
+          this.inativarTemporizador();
 				} else {
 					this.tempoEmSegundos--;
 				}
@@ -156,6 +159,10 @@ export default defineComponent({
     reiniciarCiclosDeTrabalho(): void {
       this.isCicloDeTrabalho = true;
       this.contadorCiclosTrabalho = 0;
+    },
+
+    tocarAudio(): void {
+      new Audio(notification).play();
     },
 
     isPausaLonga(): boolean {
